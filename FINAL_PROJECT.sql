@@ -1,5 +1,5 @@
 -- Create Database
-CREATE DATABASE final_project_ecommerce;
+CREATE DATABASE IF NOT EXISTS final_project_ecommerce;
 USE final_project_ecommerce;
 
 -- 1. Regions (no dependencies)
@@ -46,9 +46,6 @@ CREATE TABLE OrderDetails (
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
-
-SELECT * FROM OrderDetails;
-
 
 -- INSERT INTO REGIONS
 INSERT INTO Regions (RegionID, RegionName, Country) VALUES
@@ -3379,4 +3376,8 @@ INSERT INTO OrderDetails (OrderDetailID, OrderID, ProductID, Quantity) VALUES
 (2000, 649, 57, 2);
 
 
-SELECT * FROM orders;
+SELECT * FROM Regions;
+SELECT * FROM Customers;
+SELECT * FROM Products;
+SELECT * FROM Orders;
+SELECT * FROM OrderDetails;
