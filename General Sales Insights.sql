@@ -35,14 +35,16 @@ GROUP BY ProductName, Category
 ORDER BY ProductName, Category ;
 
 -- 1.5 What is the average order value (AOV) across all orders?
-SELECT O.OrderID , SUM(Quantity * Price)/COUNT(O.OrderID) AS AOV 
+SELECT
+    O.OrderID,
+    SUM(OD.Quantity * P.Price) AS AOV
 FROM products P
 JOIN orderdetails OD
-ON P.ProductID = OD.ProductID
+    ON P.ProductID = OD.ProductID
 JOIN orders O
-ON O.OrderID = OD.OrderID
-GROUP BY OrderID
-ORDER BY OrderID ASC;
+    ON O.OrderID = OD.OrderID
+GROUP BY O.OrderID
+ORDER BY O.OrderID;
 
 
 -- 1.6 AOV per Year / Month
