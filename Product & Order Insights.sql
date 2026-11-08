@@ -8,10 +8,10 @@ GROUP BY P.ProductID ,P.ProductName
 ORDER BY TotalQty DESC
 LIMIT 10;
 
--- 3.2What are the top 10 most sold products (by revenue)?
+-- 3.2 What are the top 10 most sold products (by revenue)?
 SELECT P.ProductID ,P.ProductName,SUM(OD.Quantity*P.Price) AS Revenue
 FROM orderdetails OD
-JOIN products P ON OD.ProductID =OD.ProductID
+JOIN products P ON OD.ProductID = P.ProductID
 GROUP BY P.ProductID ,P.ProductName
 ORDER BY Revenue DESC 
 LIMIT 10;
@@ -29,15 +29,15 @@ JOIN orders O ON O.OrderID = OD.OrderID
 WHERE IsReturned = 1
 GROUP BY ProductID	
 )
-SELECT ProductName,ROUND(TotalQtyReturned/TotalQty,2) AS ReturnRate
+SELECT ProductName,ROUND(COALESCE(TotalQtyReturned, 0) / TotalQty, 2) AS ReturnRate
 FROM Products P 
 JOIN Sold S ON S.ProductID = P.ProductID
-JOIN Returned R ON R.ProductID = P.ProductID
+LEFT JOIN Returned R ON R.ProductID = P.ProductID
 ORDER BY ReturnRate DESC
 LIMIT 10;
 
 
--- Return Rate by Category
+--3.4 Return Rate by Category
 WITH Sold AS(
 SELECT Category,SUM(Quantity) AS TotalQty
 FROM orderdetails OD
@@ -58,7 +58,7 @@ JOIN  Returned R ON R.Category = S.Category
 ORDER BY ReturnRate DESC
 LIMIT 10;
 
--- What is the average price of products per region? AVG(PRICE) = TOTTALREVENUE/TOTALQTY
+--3.5 What is the average price of products per region? AVG(PRICE) = TOTTALREVENUE/TOTALQTY
 SELECT RegionName,ROUND(SUM(OD.Quantity*P.Price)/SUM(OD.Quantity),2) AS AvgPrice
 FROM orders O
 JOIN Customers C ON C.CustomerID = O.CustomerID
@@ -69,7 +69,7 @@ GROUP BY RegionName
 ORDER BY AvgPrice DESC;
 
 
--- What is the sales trend for each product category? 
+--3.6 What is the sales trend for each product category? 
 SELECT DATE_FORMAT(OrderDate,"%Y-%m") AS Period,Category,SUM(OD.Quantity*P.price) AS Revenue
 FROM orders O
 JOIN orderdetails OD ON OD.OrderID = O.OrderID
