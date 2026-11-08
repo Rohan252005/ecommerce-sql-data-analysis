@@ -40,7 +40,7 @@ JOIN Regions R ON R.RegionID = C.RegionID
 JOIN orderdetails OD ON OD.OrderID =O.OrderID
 JOIN products P ON P.ProductID = OD.ProductID
 GROUP BY RegionName
-ORDER BY  TotalRevenue DESC;
+ORDER BY TotalRevenue DESC;;
 
 -- Compare across different regions
 WITH T1 AS(SELECT RegionName, COUNT(OrderID) AS OrderVolume
@@ -67,7 +67,8 @@ JOIN T2 ON T1.RegionName = T2.RegionName;
 
 -- 6.1 What is the overall return rate by product category?
 SELECT Category,
-    ROUND(SUM(CASE WHEN IsReturned = 1 THEN 1 ELSE 0 END)/COUNT(O.OrderID),2) AS ReturnRate
+    ROUND(
+    SUM(CASE WHEN O.IsReturned = 1 THEN OD.Quantity ELSE 0 END)/ SUM(OD.Quantity) * 100,2) AS ReturnRate
   FROM orders O  
   JOIN orderdetails OD ON OD.OrderID = O.OrderID
   JOIN products P ON P.ProductID = OD.ProductID
