@@ -41,6 +41,9 @@ The objective is to understand business performance, identify trends, and suppor
 | EER DIAGRAM.mwb | Database relationship diagram |
 | REFRRENCE_PNG.png | Reference image |
 
+## Database Schema – EER Diagram
+![EER Diagram](REFRRENCE_PNG.png)
+
 ## Future Improvements
 - Build an interactive Power BI dashboard.
 - Add visual representations of key business insights.
