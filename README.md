@@ -39,7 +39,7 @@ The objective is to understand business performance, identify trends, and suppor
 | Product & Order Insights.sql | Product and order analysis |
 | Temporal Trends,Regional Insights & Refund Insights.sql | Trend, regional, and refund analysis |
 | EER DIAGRAM.mwb | Database relationship diagram |
-| REFRRENCE_PNG.png | Reference image |
+| REFRRENCE_PNG.png |EER Diagram Preview|
 
 ## Database Schema – EER Diagram
 ![EER Diagram](REFRRENCE_PNG.png)
